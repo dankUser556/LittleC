@@ -1,5 +1,5 @@
-*/ Recursive descent parser for integer expressions
-   which may include variables and function calls.  /*
+/* Recursive descent parser for integer expressions
+   which may include variables and function calls. */
 #include "setjmp.h"
 #include "math.h"
 #include "ctype.h"
@@ -49,7 +49,3 @@ extern struct var_type {
 	enum variable_type var_type;
 	int value;
 } global_vars[NUM_GLOBAL_VARS];
-
-
-
-} global_vars[NUM_GLOBAL_V
