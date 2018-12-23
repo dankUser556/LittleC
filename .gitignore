@@ -4,3 +4,4 @@ littlec
 lclib.o
 parser.o
 littlec.lib
+dlittlec
