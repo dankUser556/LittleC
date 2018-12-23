@@ -330,7 +330,7 @@ void sntx_err(int error)
   p = p_buf;
   while(p != prog) {
     p++;
-    if(*p=='\r') {
+    if(*p=='\n') {
       linecount++;
     }
   }
@@ -354,8 +354,8 @@ int get_token(void)
   /* skip over white space */
   while(iswhite(*prog) && *prog) ++prog;
 
-  if(*prog=='\r') {
-    ++prog;
+  if(*prog=='\n') {
+    
     ++prog;
     /* skip over white space */
     while(iswhite(*prog) && *prog) ++prog;
@@ -371,7 +371,7 @@ int get_token(void)
     *temp = *prog;
     temp++;
     *temp = '\0';
-    prog;
+    prog++;
     return(token_type=BLOCK);
   }
 
@@ -504,7 +504,7 @@ int internal_func(char *s)
 int isdelim(char c)
 {
   if(strchr(" !;,+-<>'/*%&^=()", c) || c==9 ||
-    c=='\r' || c==0) return 1;
+    c=='\n' || c==0) return 1;
   return 0;
 }
 
