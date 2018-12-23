@@ -3,7 +3,7 @@ A little C interpreter
 
   What is contained herein is an implementation of a C interpreter 
 that was written by Herb Shildt in his 1989 book Born to Code in C.
-I have attempted to keep as the actual code as close as possible to
+I have attempted to keep the actual code as close as possible to
 his original specification, but certain compromises have to be made
 considering the passage of time.
 
