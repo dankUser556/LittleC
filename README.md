@@ -24,9 +24,9 @@ make
 
 at the prompt, and then execute
 
-./littlec <filename>
+./littlec \<filename\>
 
-where <filename> is one of the 3 available demo files. You can try
+where \<filename\> is one of the 3 available demo files. You can try
 writing your own, but the keyword set is pretty limited. Examine 
 parser1.c for more information.
 
