@@ -466,10 +466,12 @@ int	get_token(void)
 		#endif
 		*token	= '\0';
 		tok = FINISHED;
+		prog=p_buf;
+		return(token_type=DELIMITER);
 		
 		
 	}
-	if(tok=FINISHED) token_type=DELIMITER;
+	
 	printf("\nskipped \\0 check");
 	if(strchr("{}", *prog)) {	/* block delimiters	*/
 		#ifdef DEBUG

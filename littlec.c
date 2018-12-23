@@ -256,6 +256,7 @@ void prescan(void)
 			#ifdef DEBUG
 			static int loop_count = 1;
 			printf("\nbrace loop calling get_token(), loop count: %d",loop_count++);
+			if(loo
 			#endif
 			get_token();
 			if(*token=='{') {

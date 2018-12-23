@@ -1,7 +1,3 @@
-
-
-
-
 int i,j;
 char ch;
 main() {
@@ -19,4 +15,27 @@ main() {
 				print(j);
 				print("summed is");
 				print(sum(j));
-				puts(''); } } } while(i!=0); }
+				puts(""); 
+			} 
+		} 
+	} while(i!=0); 
+}
+
+sum(int num)
+{
+	int running_sum;
+	running_sum = 0;
+	while(num) {
+		running_sum = running_sum + num;
+		num = num - 1;
+	}
+	return running_sum;
+}
+
+print_alpha()
+{
+	for(ch = 'A'; ch<='Z' ; ch = ch + 1) {
+		putch(ch);
+	}
+	puts("");
+}
