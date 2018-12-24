@@ -5,3 +5,5 @@ lclib.o
 parser.o
 littlec.lib
 dlittlec
+parser1.o
+littlec.o
