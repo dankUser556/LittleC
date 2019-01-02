@@ -351,12 +351,12 @@ void decl_global(void)
 
 	do { /* process comma-separated list */
 		#ifdef DEBUG
-		printf("calling get_token to process global comma list");
+		printf("\ncalling get_token to process global comma list");
 		#endif
 		get_token(); /* get name */
 		strcpy(global_vars[gvar_index].var_name,token);
 		#ifdef DEBUG
-		printf("calling get_token again for global comma list");
+		printf("\n%s declared in global_var[%d]",global_vars[gvar_index].varname,gvar_index);
 		#endif
 		get_token();
 		gvar_index++;
@@ -603,7 +603,13 @@ void exec_for(void)
 	int cond;
 	char *temp, *temp2;
 	int brace;
+	#ifdef DEBUG
+	printf("\nexec_for(void) entered, calling get_token()");
+	#endif
 	get_token();
+	#ifdef DEBUG
+	printf("\ncalling eval_exp(&cond), prog: %c %d %x",*prog,*prog,*prog);
+	#endif
 	eval_exp(&cond);
 	if(*token!=';') sntx_err(SEMI_EXPECTED);
 	prog++;
@@ -621,6 +627,9 @@ void exec_for(void)
 		}
 		if(cond) interp_block();
 		else {
+			#ifdef DEBUG
+			printf("\nnatural end of exec_for");
+			#endif
 			find_eob();
 			return;
 		}
@@ -628,6 +637,9 @@ void exec_for(void)
 		eval_exp(&cond);
 		prog = temp;
 	}
+	#ifdef DEBUG
+	printf("\nend of exec_for() block");
+	#endif
 }
 void debug_delay(int var)
 {	//Here is a function I wrote to slow down loops during debug. I hope it works
