@@ -33,6 +33,9 @@ int call_getche(void)
 }
 int call_putch(void)
 {
+	#ifdef DEBUG
+	printf("\nclclib.call_putch(void) entered");
+	#endif
 	int value;
 	eval_exp(&value);
 	printf("%c",value);

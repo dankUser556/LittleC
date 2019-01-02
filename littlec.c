@@ -287,7 +287,7 @@ void prescan(void)
 		get_token();
 		if(tok==CHAR || tok==INT) { /* is global var */
 			#ifdef DEBUG
-			printf("\nGlobal var found, declaring %s", (tok==CHAR) ? "CHAR": "INT");
+			printf("\nGlobal var found in prescan block, calling putback() then decl_global(%s)", (tok==CHAR) ? "CHAR": "INT");
 			#endif
 			putback();
 			decl_global();
