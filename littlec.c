@@ -88,22 +88,21 @@ int lvartos; /* index into local varuable stack */
 
 int ret_value; /* function return value */
 
-void print(void), prescan(void);
-void decl_global(void), call(void), putback(void);
-void decl_local(void), local_push(struct var_type i);
-void eval_exp(int *value), sntx_err(int error);
-void exec_if(void), find_eob(void), exec_for(void);
-void get_params(void), get_args(void);
-void exec_while(void), func_push(int i), exec_do(void);
-void assign_var(char *var_name, int value), debug_delay(int var);
-int load_program(char *p, char *fname), find_var(char *s);
-void interp_block(void), func_ret(void);
-int func_pop(void), is_var(char *s), get_token(void);
+void  print(void), prescan(void), decl_global(void);
+void   call(void), putback(void), decl_local(void);
+void local_push(struct var_type), eval_exp(int*), sntx_err(int);
+void    exec_if(void), 	   find_eob(void), exec_for(void);
+void get_params(void),	   get_args(void), exec_while(void);
+void func_push(int i), 		exec_do(void),  assign_var(char*,int);
+void debug_delay(int), interp_block(void), func_ret(void);
+
+int load_program(char*,char*), find_var(char*);
+int 		   func_pop(void), is_var(char*), get_token(void);
 char *find_func(char *name);
 
 /* Debugging functions */
 void dump_buf(char*,int,int);
-int eof_check(char);
+int  eof_check(char);
 
 int main(int argc, char *argv[])
 {
@@ -156,7 +155,10 @@ void interp_block(void)
 {
 	int value;
 	char block = 0;
-
+	#ifdef DEBUG
+	printf("\ninterp_block(void) entered, no significant vars to report");
+	#endif
+	
 	do {
 		token_type = get_token();
 
@@ -201,6 +203,9 @@ void interp_block(void)
 					exec_do();
 					break;
 				case FOR: /* process for loop */ 
+					#ifdef DEBUG
+					printf("\ncase FOR found, calling exec_for()");
+					#endif
 					exec_for();
 					break;
 				case END:
@@ -256,7 +261,7 @@ void prescan(void)
 			#ifdef DEBUG
 			static int loop_count = 1;
 			printf("\nbrace loop calling get_token(), loop count: %d",loop_count++);
-			if(loo
+			//if(loo???
 			#endif
 			get_token();
 			if(*token=='{') {
