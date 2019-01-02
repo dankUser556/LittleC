@@ -356,7 +356,7 @@ void decl_global(void)
 		get_token(); /* get name */
 		strcpy(global_vars[gvar_index].var_name,token);
 		#ifdef DEBUG
-		printf("\n%s declared in global_var[%d]",global_vars[gvar_index].varname,gvar_index);
+		printf("\n%s declared in global_var[%d]",global_vars[gvar_index].var_name,gvar_index);
 		#endif
 		get_token();
 		gvar_index++;
