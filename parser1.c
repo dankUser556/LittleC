@@ -17,8 +17,7 @@
 
 enum tok_types {DELIMITER, IDENTIFIER, NUMBER, KEYWORD, TEMP, STRING, BLOCK};
 
-enum tokens {ARG, CHAR ,INT, IF, ELSE, FOR, DO, WHILE, SWITCH, RETURN, EOL, 
-	     FINISHED, END};
+enum tokens {ARG, CHAR ,INT, IF, ELSE, FOR, DO, WHILE, SWITCH, RETURN, EOL, FINISHED, END};
 
 enum double_ops {LT=1, LE, GT, GE, EQ, NE};
 
@@ -52,14 +51,14 @@ extern struct var_type {
 
  /* This is the function call stack. */
 extern struct func_type {
-  char func_name[32];
-  char loc; /*location of function entry point in file */
+	char func_name[32];
+	char loc; /*location of function entry point in file */
 } func_stack[NUM_FUNC];
 
 /* Keyword table */
 extern struct commands {
-  char command[20];
-  char tok;
+	char command[20];
+	char tok;
 } table[];
 
 /* "Standard library" functions are declared here so
@@ -69,15 +68,15 @@ int call_getche(void), call_putch(void);
 int call_puts(void), print(void), getnum(void);
 
 struct intern_func_type {
-  char *f_name; /* function name */
-  int (* p)();  /* pointer to the function */
+	char *f_name; /* function name */
+	int (* p)();  /* pointer to the function */
 } intern_func[] = {
-  "getche", call_getche,
-  "putch", call_putch,
-  "puts", call_puts,
-  "print", print,
-  "getnum",getnum,
-  "",0 /* Practicing null terminators */
+	"getche", call_getche,
+	"putch", call_putch,
+	"puts", call_puts,
+	"print", print,
+	"getnum",getnum,
+	"",0 /* Practicing null terminators */
 };
 
 extern char token[80];  /* string representation of a token */
@@ -104,46 +103,62 @@ void call(void);
 /* Entry point into parser. */
 void eval_exp(int *value)
 {
-  get_token();
-  if(!*token) {
-    sntx_err(NO_EXP);
-    return;
-  }
-  if(*token==';') {
-    *value = 0; /* empty expression */
-    return;
-  }
-  eval_exp0(value);
-  putback(); /* return last token read to input stream */
+	#ifdef DEBUG
+	printf("\neval_exp() entered, calling get_token()");
+	#endif
+	get_token();
+ 	if(!*token) {
+    	#ifdef DEBUG
+		printf("\nNo token found, calling sntx_err() and returning from eval_exp()");
+		#endif
+		sntx_err(NO_EXP);
+    	return;
+	}
+	if(*token==';') {
+		#ifdef DEBUG
+		printf("\nsemi-colon found, setting value to 0 and returning from eval_exp()");
+		#endif
+		*value = 0; /* empty expression */
+		return;
+	}
+	#ifdef DEBUG
+	printf("\ncalling eval_exp0(%c,%d,%x)",*value,*value,*value);
+	#endif
+	eval_exp0(value);
+	putback(); /* return last token read to input stream */
 }
 
 /* Process an assignment expression */
 void eval_exp0(int *value)
 {
-  char temp[ID_LEN]; /* holds name of var receiving
-			 the assignment */
-  
-  register int temp_tok;
+	char temp[ID_LEN]; /* holds name of var receiving
+						  the assignment */
+	#ifdef DEBUG
+	printf("\neval_exp0 entered, checking for identifier");
+	#endif
+	register int temp_tok;
 
-  if(token_type==IDENTIFIER) {
-    if(is_var(token)) {
-      strcpy(temp,token);
-      temp_tok=token_type;
-      get_token();
-      if(*token=='=') { /* Is an assignment */
-        get_token();
-        eval_exp0(value); /* get value to assign */
-        assign_var(temp,*value);
-        return;
-      }
-      else { /* not an assignment */
-        putback();
-        strcpy(token,temp);
-        token_type = temp_tok;
-      }
-    }
-  }
-  eval_exp1(value);
+	if(token_type==IDENTIFIER) {
+		#ifdef DEBUG
+		printf("\nIdentifier found, checking if is_var(token)");
+		#endif
+		if(is_var(token)) {
+			strcpy(temp,token);
+			temp_tok=token_type;
+			get_token();
+			if(*token=='=') { /* Is an assignment */
+				get_token();
+				eval_exp0(value); /* get value to assign */
+				assign_var(temp,*value);
+				return;
+			} else { /* not an assignment */
+				putback();
+				strcpy(token,temp);
+				token_type = temp_tok;
+			}
+		}
+	}
+	eval_exp1(value);
 }
 
 /* This array is used by eval_exp(). Because
