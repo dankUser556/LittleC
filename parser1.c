@@ -140,14 +140,26 @@ void eval_exp0(int *value)
 
 	if(token_type==IDENTIFIER) {
 		#ifdef DEBUG
-		printf("\nIdentifier found, checking if is_var(token)");
+		printf("\nIdentifier found, checking if is_var(token) in eval_exp0");
 		#endif
 		if(is_var(token)) {
+			#ifdef DEBUG
+			printf("\nis_var(token) is valid, copying token string into temp from eval_exp0");
+			#endif
 			strcpy(temp,token);
 			temp_tok=token_type;
+			#ifdef DEBUG
+			printf("\ncalling get_token() again to check for '=' in eval_exp0()");
+			#endif
 			get_token();
 			if(*token=='=') { /* Is an assignment */
+				#ifdef DEBUG
+				printf("\n'=' found, calling get_token from eval_exp0()");
+				#endif
 				get_token();
+				#ifdef DEBUG
+				printf("\nif is_var(token)");
+				#endif
 				eval_exp0(value); /* get value to assign */
 				assign_var(temp,*value);
 				return;
